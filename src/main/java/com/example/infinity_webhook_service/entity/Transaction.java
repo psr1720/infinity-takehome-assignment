@@ -1,5 +1,6 @@
 package com.example.infinity_webhook_service.entity;
 
+import com.example.infinity_webhook_service.enums.Status;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,7 @@ import java.time.Instant;
 public class Transaction{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // auto-incremented primary key
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "event_id", nullable = false, unique = true)
@@ -79,7 +80,4 @@ public class Transaction{
         this.updatedAt = Instant.now();
     }
 
-    public enum Status {
-        pending, completed, failed
-    }
 }
