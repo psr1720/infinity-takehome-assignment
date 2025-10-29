@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.MissingRequestHeaderException;
+import com.example.infinity_webhook_service.mappers.TransactionMapper;
 
 import java.util.*;
 
@@ -58,8 +59,16 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(DuplicateTransactionException.class)
-    public ResponseEntity<Map<String, String>> handleDuplicate(DuplicateTransactionException ex) {
-        log.warn("Duplicate transaction: {}", ex.getMessage());
+    public ResponseEntity<Object> handleDuplicate(DuplicateTransactionException ex) {
+        log.warn("Duplicate transaction detected: {}", ex.getMessage());
+
+        if (ex.getExistingTransaction() != null) {
+            var dto = TransactionMapper.toDTO(ex.getExistingTransaction());
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of(
+                    "error", ex.getMessage(),
+                    "existing_transaction", dto
+            ));
+        }
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(Map.of("error", ex.getMessage()));
     }

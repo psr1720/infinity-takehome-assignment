@@ -34,7 +34,5 @@ public class TransactionData {
     @JsonProperty("payment_method")
     private String paymentMethod;
 
-    @NotNull(message = "metadata is required")
-    @Valid
     private Metadata metadata;
 }
