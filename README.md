@@ -60,7 +60,7 @@ Before running the application, ensure you have the following installed:
       DB_PASSWORD=yourpassword
       WEBHOOK_SECRET=infinity_webhook_secret
    ```
-3. **If using and IDE like Intellij click the run after adding .env in the configuration (OR).**
+3. **If using an IDE like Intellij click the run after adding .env in the configuration (OR).**
 
 4. **Build the project**
    ```
